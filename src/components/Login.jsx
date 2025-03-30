@@ -8,6 +8,7 @@ const Login = () => {
 
   const [email,setEmail]=useState("commando@gmail.com");
   const [password,setPassword]=useState("Commando@123");
+  const [error,setError]=useState("");
   const dispatch=useDispatch();
   const navigate=useNavigate();
 
@@ -18,7 +19,9 @@ const Login = () => {
       dispatch(addUser(res.data))
       navigate("/")
     }
-    catch(err){console.log(err)}  
+    catch(err){
+      setError(err?.response?.data)
+      console.log(err)}  
   }
 
   return (
@@ -47,10 +50,11 @@ const Login = () => {
   <br/>At least one uppercase letter
   </p>
     </div>
-
+    <p className='text-black-500'>{error}</p>
     <div className="card-actions justify-center">
       <button className="btn btn-primary" onClick={handleClick}>Login</button>
     </div>
+
     </div>
   </div>
     </div>
