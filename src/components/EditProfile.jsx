@@ -8,13 +8,17 @@ import { addUser } from '../utils/userSlice';
 const EditProfile = ({data}) => {
     const [firstName,setfirstName]=useState(data.firstName);
     const [lastName,setlastName]=useState(data.lastName);
+    const [photoUrl,setphotoUrl]=useState(data.photoUrl);
+    const [age,setAge]=useState(data.age || "");
+    const [gender,setGender]=useState(data.gender || "");
+    const [about,setAbout]=useState(data.about || "");
     const [error,setError]=useState("");
     const [showToast,setShowToast]=useState(false);
     const dispatch=useDispatch()
 
     const saveProfile=async()=>{
         try{
-            const res=await axios.patch(BASE_URL+"/profile/edit",{firstName,lastName},{withCredentials:true})
+            const res=await axios.patch(BASE_URL+"/profile/edit",{firstName,lastName,photoUrl,age,gender,about},{withCredentials:true})
             dispatch(addUser(res?.data?.data))
 
             setShowToast(true)
@@ -52,8 +56,44 @@ const EditProfile = ({data}) => {
     </div>
     <input type="text" value={lastName} onChange={(e)=>{setlastName(e.target.value)}} required  />
     </label>
-
     </div>
+
+    <div>
+      <label className="input validator">
+        <div className="label">
+            <span className="label-text">Age</span>
+        </div>
+      <input type="text" value={age} onChange={(e)=>{setAge(e.target.value)}}  required/>
+      </label>
+    </div>
+
+    <div>
+      <label className="input validator">
+        <div className="label">
+            <span className="label-text">Photo Url</span>
+        </div>
+      <input type="text" value={photoUrl} onChange={(e)=>{setphotoUrl(e.target.value)}}  required/>
+      </label>
+    </div>
+
+    <div>
+      <label className="input validator">
+        <div className="label">
+            <span className="label-text">Gender</span>
+        </div>
+      <input type="text" value={gender} onChange={(e)=>{setGender(e.target.value)}}  required/>
+      </label>
+    </div>
+
+    <div>
+      <label className="input validator">
+        <div className="label">
+            <span className="label-text">About</span>
+        </div>
+      <input type="text" value={about} onChange={(e)=>{setAbout(e.target.value)}}  required/>
+      </label>
+    </div>
+
     <p className="text-red-50"> {error}</p>
     <div className="card-actions justify-center"> 
       <button className="btn btn-primary" onClick={saveProfile}>Save Profile</button>
@@ -62,7 +102,7 @@ const EditProfile = ({data}) => {
     </div>
     </div>
         </div>
-        <UserCard user={{firstName,lastName}}/>
+        <UserCard user={{firstName,lastName,photoUrl,age,gender,about}}/>
 
         {showToast && <div className="toast toast-center toast-middle">
         <div className="alert alert-success">

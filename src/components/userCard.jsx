@@ -6,7 +6,7 @@ import axios from 'axios'
 
 const UserCard = ({user}) => {
 
-    const {firstName, lastName,_id}=user
+    const {firstName, lastName,_id,photoUrl,age,gender,about}=user
     const dispatch=useDispatch()
 
     const handleClick=async (status,userid)=>{
@@ -23,11 +23,13 @@ const UserCard = ({user}) => {
     <div className="card bg-base-300 w-96  shadow-sm">
     <figure>
     <img
-      src="https://as2.ftcdn.net/v2/jpg/03/60/90/07/1000_F_360900705_uXsGkXMosq4T69jwIgluj9wDeEX9EWQy.jpg"
-      alt="Shoes" />
+      src={photoUrl}
+      alt="Person" />
     </figure>
     <div className="card-body">
     <h2 className="card-title">{firstName +" "+lastName}</h2>
+    {age && gender && <p>{age + ", " + gender}</p>}
+    <p>{about}</p>
     <div className="card-actions justify-center">
       <button className="btn btn-primary" onClick={()=>handleClick("ignored",_id)}>Ignore</button>
       <button className="btn btn-primary" onClick={()=>handleClick("interested",_id)}>Interested</button>
