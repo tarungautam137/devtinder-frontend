@@ -5,11 +5,13 @@ import { useDispatch,useSelector } from 'react-redux'
 import { addFeed } from '../utils/feedSlice'
 import { useEffect } from 'react'
 import UserCard from './userCard'
+import { useNavigate } from 'react-router'
 
 const Feed = () => {
 
   const data=useSelector(store=>store.feed)
   const dispatch=useDispatch()
+  const navigate=useNavigate()
 
   const getFeed = async () =>{
     try{
@@ -20,6 +22,7 @@ const Feed = () => {
     }
     catch(err){
       console.log(err)
+      if(err.response.data==="Please login to access this resource") navigate('/login')
     }
   }
 
