@@ -21,11 +21,13 @@ const UserCard = ({user}) => {
 
   return (
     <div className="card bg-base-300 w-96  shadow-sm">
+      
     <figure>
-    <img
+    <img className='h-80'
       src={photoUrl}
       alt="Person" />
     </figure>
+
     <div className="card-body">
     <h2 className="card-title">{firstName +" "+lastName}</h2>
     {age && gender && <p>{age + ", " + gender}</p>}
